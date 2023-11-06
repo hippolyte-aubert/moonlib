@@ -9,7 +9,7 @@ enable_language(CXX)
 
 include(GNUInstallDirs)
 
-project(moonlib)
+project(moonlib VERSION 0.1.0 LANGUAGES CXX)
 
 find_package(raylib CONFIG REQUIRED)
 
