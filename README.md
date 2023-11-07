@@ -60,7 +60,7 @@ sudo make install
 
 class GameScene : public MLIB::DefaultScene {
     public:
-        Game(Engine &engine) : _engine(engine) {};
+        Game(MLIB::Engine &engine) : _engine(engine) {};
         ~Game() {};
 
         MLIB::Engine &engine;
@@ -118,8 +118,8 @@ class GameScene : public MLIB::DefaultScene {
         {
             auto &transform = engine.GetComponent<MLIB::Transform2D>(player);
 
-            transform.position.x += InputSystem::GetAxis("Horizontal") * 400 * GetFrameTime();
-            transform.position.y += InputSystem::GetAxis("Vertical") * 400 * GetFrameTime();
+            transform.position.x += MLIB::InputSystem::GetAxis("Horizontal") * 400 * GetFrameTime();
+            transform.position.y += MLIB::InputSystem::GetAxis("Vertical") * 400 * GetFrameTime();
         }
 };
 
@@ -127,13 +127,13 @@ int main(void)
 {
     MLIB::Engine engine("My Game", 800, 450, MLIB::Mode2D, "assets/");
 
-    MLIB::Init();
+    engine.Init();
 
-    std::shared_ptr<GameScene> gameScene = std::make_shared<GameScene>(engine);
+    std::shared_ptr<MLIB::Scene> gameScene = std::make_shared<MLIB::Scene>(engine);
 
     unsigned int gameSceneId = engine.AddScene(gameScene);
 
-    engine.LoadScene(gameSceneId);
+    engine.SwitchScene(gameSceneId);
 
     engine.Run();
 }
