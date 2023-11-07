@@ -1752,7 +1752,7 @@ namespace MLIB {
 
     class Engine {
         public:
-            Engine(std::string gameName, int width, int height, Mode mode,const std::string& assetsDirectory, bool render = true) : _render(render), _assetManager(AssetManager::GetInstance()), _mode(mode), _camera(mode == Mode2D ? CameraType::CAMERA_2D : CameraType::CAMERA_3D)
+            Engine(std::string gameName, int width, int height, Mode mode, const std::string& assetsDirectory, bool render = true) : _render(render), _assetManager(AssetManager::GetInstance()), _mode(mode), _camera(mode == Mode2D ? CameraType::CAMERA_2D : CameraType::CAMERA_3D)
             {
                 _isRunning = true;
                 if (_render) {

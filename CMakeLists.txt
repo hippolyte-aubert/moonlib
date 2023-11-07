@@ -1,6 +1,5 @@
 cmake_minimum_required(VERSION 3.16)
 
-set(CMAKE_TOOLCHAIN_FILE C:/Users/hippo/vcpkg/scripts/buildsystems/vcpkg.cmake)
 set(CMAKE_BUILD_TYPE Release)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
@@ -47,11 +46,22 @@ add_library(moonlib SHARED
 
 target_include_directories(${PROJECT_NAME} PRIVATE ./src)
 
-install(TARGETS moonlib LIBRARY DESTINATION "moonlib/lib"
-                      ARCHIVE DESTINATION "moonlib/lib"
-                      RUNTIME DESTINATION "moonlib/bin"
-                      COMPONENT library)
+if (WIN32)
+    install(TARGETS moonlib LIBRARY DESTINATION "moonlib/lib"
+                        ARCHIVE DESTINATION "moonlib/lib"
+                        RUNTIME DESTINATION "moonlib/bin"
+                        COMPONENT library)
 
-install(FILES ./src/moonlib.h DESTINATION "moonlib/include")
+    install(FILES ./src/moonlib.h DESTINATION "moonlib/include")
+endif()
+
+if (UNIX)
+    install(TARGETS moonlib LIBRARY DESTINATION "${CMAKE_INSTALL_LIBDIR}"
+                        ARCHIVE DESTINATION "${CMAKE_INSTALL_LIBDIR}"
+                        RUNTIME DESTINATION "${CMAKE_INSTALL_BINDIR}"
+                        COMPONENT library)
+
+    install(FILES ./src/moonlib.h DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}")
+endif()
 
 target_link_libraries(${PROJECT_NAME} PRIVATE raylib)
