@@ -6,7 +6,7 @@ You'll need cmake for the whole intallation process
 You can download cmake [here](https://cmake.org/download/)
 
 ### Windows
-First open a terminal ``as administrator`` and install/build the raylib for windows with [vcpkg](https://github.com/microsoft/vcpkg)
+First open a terminal **as administrator** and install/build the raylib for windows with [vcpkg](https://github.com/microsoft/vcpkg)
 
 ```bash
 git clone https://github.com/Microsoft/vcpkg.git
