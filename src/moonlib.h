@@ -649,22 +649,6 @@ namespace MLIB {
         }
     };
 
-    // TODO Remove this component after defense
-    // ---------------------------------
-    // Entity Data components
-    // ---------------------------------
-    struct EntityData {
-        int HP;
-        unsigned int DMG;
-        unsigned int LVL;
-
-        bool isAlive() {
-            if (HP < 0)
-                return false;
-            return true;
-        }
-    };
-
     //** Scene System **//
 
     class Scene {
@@ -1432,28 +1416,6 @@ namespace MLIB {
             }
     };
 
-    // TODO Remove this system after defense
-    // ---------------------------------
-    // Entity Data System
-    // ---------------------------------
-    class EntityDataSystem : public System {
-        public:
-            EntityDataSystem() = default;
-            ~EntityDataSystem() = default;
-
-            void Start(Coordinator &coordinator) {}
-            void Update(Coordinator &coordinator)
-            {
-                for (auto const &entity : entities) {
-                    auto &entityData = coordinator.GetComponent<EntityData>(entity);
-
-                    if (!entityData.isAlive()) {
-                        coordinator.DestroyEntity(entity);
-                    }
-                }
-            }
-    };
-
     //** Input System **//
 
     class InputSystem {
@@ -1783,7 +1745,6 @@ namespace MLIB {
                 _coordinator.RegisterComponent<Text>();
                 _coordinator.RegisterComponent<Button>();
                 _coordinator.RegisterComponent<Audio>();
-                _coordinator.RegisterComponent<EntityData>();
 
                 _renderer = _coordinator.RegisterSystem<RenderingSystem>();
                 {
@@ -1809,13 +1770,6 @@ namespace MLIB {
                     signature.set(_coordinator.GetComponentType<Collision2D>());
                     signature.set(_coordinator.GetComponentType<Renderer2D>());
                     _coordinator.SetSystemSignature<CollisionSystem>(signature);
-                }
-
-                _entityData = _coordinator.RegisterSystem<EntityDataSystem>();
-                {
-                    Signature signature;
-                    signature.set(_coordinator.GetComponentType<EntityData>());
-                    _coordinator.SetSystemSignature<EntityDataSystem>(signature);
                 }
 
                 _text = _coordinator.RegisterSystem<TextSystem>();
@@ -1872,7 +1826,6 @@ namespace MLIB {
                 }
                 _physics->Start(_coordinator);
                 _collision->Start(_coordinator);
-                _entityData->Start(_coordinator);
             }
 
             void Update()
@@ -1880,7 +1833,6 @@ namespace MLIB {
                 if (_render) _audio->Update(_coordinator, _assetManager);
                 _physics->Update(_coordinator);
                 _collision->Update(_coordinator);
-                _entityData->Update(_coordinator);
                 _sceneManager.Update();
             }
 
@@ -1904,7 +1856,6 @@ namespace MLIB {
                 _renderer->Clear();
                 _collision->Clear();
                 _physics->Clear();
-                _entityData->Clear();
                 _text->Clear();
                 _button->Clear();
                 _audio->Clear();
@@ -2002,7 +1953,6 @@ namespace MLIB {
             std::shared_ptr<TextSystem> _text;
             std::shared_ptr<ButtonSystem> _button;
             std::shared_ptr<AudioSystem> _audio;
-            std::shared_ptr<EntityDataSystem> _entityData;
 
             void Render2D()
             {

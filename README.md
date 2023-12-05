@@ -1,4 +1,15 @@
 # moonlib
+
+<a href="https://img.shields.io/badge/MADE%20WITH-RAYLIB-brightgreen" alt="Raylib">
+        <img src="https://img.shields.io/badge/MADE%20WITH-RAYLIB-brightgreen" /></a>
+<a href="https://img.shields.io/badge/MADE%20WITH-C%2B%2B-ff69b4" alt="C++">
+        <img src="https://img.shields.io/badge/MADE%20WITH-C%2B%2B-ff69b4" /></a>
+<a href="https://img.shields.io/badge/MADE%20WITH-VCPKG-blueviolet" alt="vcpkg">
+        <img src="https://img.shields.io/badge/MADE%20WITH-VCPKG-blueviolet" /></a>
+<a href="https://img.shields.io/badge/MADE%20WITH-CMAKE-red" alt="Cmake">
+        <img src="https://img.shields.io/badge/MADE%20WITH-CMAKE-red" /></a>
+
+![Moonlib](./assets/moonlib_banner.png)
 The moonlib is an ECS game engine library that uses the raylib for rendering, user input and audio.
 
 ## Installation
